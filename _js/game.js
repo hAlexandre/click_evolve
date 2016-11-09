@@ -8,29 +8,59 @@ var coins;
 var increment;
 var income;
 var t;
+var ok = 0;
+var condIncrement = 0;
+var incrementos = [];
 
 Game.initialize = function() {
 
 	coins = 0;
 	t = 0;
-	income = 1;
+	income = 0.5;
   	increment = 1;
   	this.context = document.getElementById("canvas").getContext("2d");
   	Game.config();
+    if(ok==0) this.context.drawImage(img, 0, 0, 300, 300, 120, 150, 300, 300);
 
 };
 
-Game.coinClick = function() { coins = coins + increment;}
+Game.coinClick = function() { 
+    coins = coins + increment;   
+    var x = Math.random() * 170 + 150;
+    var y = Math.random() * 170 + 210;
+    condIncrement = 20;  
+    incrementos.push([increment, condIncrement, x, y]);
+    
+}
 
 Game.draw = function() {
     this.context.clearRect(0, 0, canvas.width, canvas.height);
   	this.context.font = "bold 18px Arial";
-  	this.context.fillText("Moedas: " + coins, 210, 100);
-  	//this.context.drawImage(img, 0, 0, 300, 300, 230, 150, 300, 300);
-  	this.context.drawImage(img, 100, 200);
+    this.context.fillStyle = "black";
+  	this.context.fillText("Moedas: " + Math.floor(coins), 195, 70);    
+    this.context.fillText("Moedas por segundo: " + (income), 195, 100);
+  	this.context.drawImage(img, 0, 0, 300, 300, 120, 150, 310, 310);
+    
+    this.context.fillStyle=('green');
+    for(var i = 0 ; i < incrementos.length ; i++) {
+        if(incrementos[i][1] == 0) {
+            incrementos.splice(i,1);
+            i -= 1;
+        }
+        else if(i == -1) break
+        else{
+            incrementos[i][1] -= 1;
+            this.context.fillText("$"+increment,incrementos[i][2], incrementos[i][3]);
+        }
+    }
+    
+
+  	
+    
 };
 
 Game.update = function() { 	
+    if(condIncrement > 0) condIncrement -= 1;
 	if(t==40){
 		t = -1;
 		coins += income;
@@ -43,13 +73,19 @@ Game.update = function() {
 
 Game.config = function() {
 
-	document.querySelector('body').addEventListener("click", function(event) {        
-        var x = event.clientX - 8;
-        var y = event.clientY - 8;   
+	document.querySelector('canvas').addEventListener("click", function(event) {        
+            
+        var rect = canvas.getBoundingClientRect();        
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;       
         
-        var dist = Math.sqrt( Math.pow(x-359,2) + Math.pow(y-278,2));
-        if(dist<=125)
+        
+        var dist = Math.sqrt( Math.pow(x-270-8,2) + Math.pow(y-8-300,2));
+        if(dist<=157)
+        {
+            console.log("Click na moeda");
             Game.coinClick();
+        }
     });
 	
     Game.run = (function() {
