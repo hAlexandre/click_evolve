@@ -65,6 +65,17 @@ body {
 	background-color: #fff;
 }
 
+#box-right-shop{
+	width: 80%;
+	height: 50%;
+	padding: 10px;
+	display: inline-block;
+	text-align: justify;
+	margin-top: 10px;	
+	border: 2px solid;
+	background-color: #fff;
+}
+
 #footer {
     clear: both;
     position: fixed;
