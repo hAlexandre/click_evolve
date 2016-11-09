@@ -95,3 +95,11 @@ body {
 	text-align: center;
 	border: 2px solid;
 }
+
+#coin-qt{
+	border: 2px solid;
+	padding: 5px;
+}
+
+#reset-count{
+}

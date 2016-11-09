@@ -4,8 +4,11 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<title>ClickEvolve</title>
 	<link rel="stylesheet" type="text/css" href="_css/main.css" />
+    <script type="text/javascript" src="_js/click_me.js"></script>
+    
 </head>
 
 <body>
@@ -22,8 +25,10 @@
         <div id="center">
             <div class="coin-top">
             	<br/>
-            	<img id="coin" src="_img/coin.png" width="300px" height="300px" />
-                <p>Moedas: x</p>
+            	<img id="coin" src="_img/coin.png" onclick="updateQt()" width="300px" height="300px" />
+                <h2>Moedas</h2>
+                <p id="coin-qt">0</p>
+                <button id="reset-count" onclick="reset()">Resetar</button>
             </div>
         </div>
         
